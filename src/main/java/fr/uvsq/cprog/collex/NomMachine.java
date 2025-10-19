@@ -17,7 +17,10 @@ public class NomMachine {
     }
 
 
-
+    @Override
+    public String toString() {
+        return fullName;
+    }
 
     public String getFullName() {
         return fullName;

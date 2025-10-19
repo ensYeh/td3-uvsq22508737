@@ -2,12 +2,7 @@ package fr.uvsq.cprog.collex;
 
 public class AdresseIP {
     private final int[] octets = new int[4];
-    String adresse ;
     public AdresseIP(String adresse) {
-        this.adresse = adresse;
-
-    }
-    public boolean is_valid_adresse() {
         String[] parts = adresse.trim().split("\\.");
         if (parts.length != 4)
             throw new IllegalArgumentException("Adresse IP invalide : " + adresse);
@@ -22,8 +17,9 @@ public class AdresseIP {
                 throw new IllegalArgumentException("Octet non numérique : " + parts[i]);
             }
         }
-        return true;
+
     }
+
 
     @Override
     public String toString() {

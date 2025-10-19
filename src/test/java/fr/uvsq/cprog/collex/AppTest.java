@@ -9,14 +9,13 @@ public class AppTest
     @Test
     public void testAdresseIPValide(){
         AdresseIP adresseIP = new AdresseIP("192.51.25.12");
-        assertTrue(adresseIP.is_valid_adresse());
+        assertEquals("192.51.25.12" , adresseIP.toString());
     }
 
     @Test
     public void testAdresseIPInvalide_OctetHorsLimite() {
-        AdresseIP adresseIP = new AdresseIP("192.51.25.300"); // 300 invalide
         try {
-            adresseIP.is_valid_adresse();
+            AdresseIP adresseIP = new AdresseIP("192.51.25.300");
             fail("Une exception aurait dû être levée");
         } catch (IllegalArgumentException e) {
             assertEquals("Octet hors limite : 300", e.getMessage());
@@ -25,9 +24,8 @@ public class AppTest
 
     @Test
     public void testAdresseIPInvalide_MauvaisFormat(){
-        AdresseIP adresseIP = new AdresseIP("192.51.25");
         try {
-            adresseIP.is_valid_adresse();
+            AdresseIP adresseIP = new AdresseIP("192.51.25");
             fail("Une exception aurait dû être levée");
         } catch (IllegalArgumentException e) {
             assertEquals("Adresse IP invalide : 192.51.25", e.getMessage());
@@ -36,9 +34,8 @@ public class AppTest
 
     @Test
     public void testAdresseIPInvalide_NonNumerique() {
-        AdresseIP adresseIP = new AdresseIP("192.51.abc.12"); // "abc" non numérique
         try {
-            adresseIP.is_valid_adresse();
+            AdresseIP adresseIP = new AdresseIP("192.51.abc.12");
             fail("Une exception aurait dû être levée");
         } catch (IllegalArgumentException e) {
             assertEquals("Octet non numérique : abc", e.getMessage());
@@ -53,7 +50,6 @@ public class AppTest
     @Test
     public void testNomMachineValide() {
         NomMachine machine = new NomMachine("www.uvsq.fr");
-
         assertEquals("www.uvsq.fr", machine.getFullName());
         assertEquals("www", machine.getNom());
         assertEquals("uvsq.fr", machine.getDomaine());
@@ -61,19 +57,19 @@ public class AppTest
 
     @Test
     public void testNomMachineAvecMajuscules() {
-        NomMachine machine = new NomMachine("Serveur.Example.COM");
-        assertEquals("serveur.example.com", machine.getFullName());
-        assertEquals("serveur", machine.getNom());
-        assertEquals("example.com", machine.getDomaine());
+        NomMachine machine = new NomMachine("Www.uVsq.FR");
+        assertEquals("www.uvsq.fr", machine.getFullName());
+        assertEquals("www", machine.getNom());
+        assertEquals("uvsq.fr", machine.getDomaine());
     }
 
     @Test
     public void testNomMachineInvalideSansPoint() {
         try {
-            new NomMachine("serveurexamplecom");
+            new NomMachine("wwwuvsqfr");
             fail("Une exception aurait dû être levée");
         } catch (IllegalArgumentException e) {
-            assertEquals("Nom invalide : serveurexamplecom", e.getMessage());
+            assertEquals("Nom invalide : wwwuvsqfr", e.getMessage());
         }
     }
 
@@ -85,6 +81,18 @@ public class AppTest
         } catch (IllegalArgumentException e) {
             assertEquals("Nom invalide : null", e.getMessage());
         }
+    }
+
+
+    //DnsItem
+    @Test
+    public void test_item(){
+
+        NomMachine machine = new NomMachine("www.uvsq.fr");
+        AdresseIP adresseIP = new AdresseIP("192.51.25.12");
+        DnsItem dnsItem = new DnsItem(adresseIP , machine);
+        assertEquals("www.uvsq.fr 192.51.25.12", dnsItem.toLine());
+
     }
 
 }
