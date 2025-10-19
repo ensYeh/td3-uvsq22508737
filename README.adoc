@@ -68,7 +68,7 @@ ERREUR : Le nom de machine existe déjà !
 ====
 
 . Réaliser les classes `AdresseIP`, `NomMachine` et `DnsItem` qui représentent respectivement une adresse IP, un nom qualifié de machine et une entrée du DNS.
-. Réaliser la classe `Dns` qui proposera les opérations suivantes:
+. Réaliser la classe `Dns` qui proposera les opérations suivantes:c
 ** un constructeur qui chargera la base de données,
 ** deux méthodes `getItem` qui retourneront une instance de `DnsItem` soit à partir d'une adresse IP, soit à partir d'un nom de machine,
 ** une méthode `getItems` qui retournera une liste d'items à partir d'un nom de domaine,
