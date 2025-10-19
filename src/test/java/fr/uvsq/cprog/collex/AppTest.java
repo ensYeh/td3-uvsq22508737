@@ -45,4 +45,46 @@ public class AppTest
         }
     }
 
+
+
+
+    //Des test pour la class NomMachine
+
+    @Test
+    public void testNomMachineValide() {
+        NomMachine machine = new NomMachine("www.uvsq.fr");
+
+        assertEquals("www.uvsq.fr", machine.getFullName());
+        assertEquals("www", machine.getNom());
+        assertEquals("uvsq.fr", machine.getDomaine());
+    }
+
+    @Test
+    public void testNomMachineAvecMajuscules() {
+        NomMachine machine = new NomMachine("Serveur.Example.COM");
+        assertEquals("serveur.example.com", machine.getFullName());
+        assertEquals("serveur", machine.getNom());
+        assertEquals("example.com", machine.getDomaine());
+    }
+
+    @Test
+    public void testNomMachineInvalideSansPoint() {
+        try {
+            new NomMachine("serveurexamplecom");
+            fail("Une exception aurait dû être levée");
+        } catch (IllegalArgumentException e) {
+            assertEquals("Nom invalide : serveurexamplecom", e.getMessage());
+        }
+    }
+
+    @Test
+    public void testNomMachineNull() {
+        try {
+            new NomMachine(null);
+            fail("Une exception aurait dû être levée");
+        } catch (IllegalArgumentException e) {
+            assertEquals("Nom invalide : null", e.getMessage());
+        }
+    }
+
 }
