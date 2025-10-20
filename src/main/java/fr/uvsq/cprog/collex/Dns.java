@@ -25,6 +25,7 @@ public class Dns {
     }
 
     private void charger() throws IOException {
+        System.out.println(dbFile);
         for (String ligne : Files.readAllLines(dbFile, StandardCharsets.UTF_8)) {
             if (ligne.isBlank() || ligne.startsWith("#")) continue;
             String[] parts = ligne.trim().split("\\s+");
