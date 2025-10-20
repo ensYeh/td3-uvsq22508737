@@ -45,8 +45,15 @@ public class Dns {
         sauvegarder();
     }
 
-
-
+    public List<DnsItem> getItems(String domaine, boolean triParAdresse) {
+        Comparator<DnsItem> cmp = triParAdresse
+                ? Comparator.comparing(DnsItem::getAdresse)
+                : Comparator.comparing(d -> d.getNomMachine().getNom());
+        return parNom.values().stream()
+                .filter(i -> i.getNomMachine().getDomaine().equalsIgnoreCase(domaine))
+                .sorted(cmp)
+                .collect(Collectors.toList());
+    }
 
     private void sauvegarder() throws IOException {
         List<String> lignes = parNom.values().stream()
